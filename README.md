@@ -1,50 +1,36 @@
-# React + TypeScript + Vite
+# Tip Calculator App - React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una **Calculadora de Propinas** construida con **React**, optimizada en términos de rendimiento y con una estructura de componentes modular. La aplicación permite a los usuarios agregar ítems a su orden, calcular el monto de la propina y ver el costo total de su consumo.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Agregar/Eliminar Ítems**: Los usuarios pueden agregar o eliminar ítems dinámicamente de su orden.
+- **Cálculo de Propinas**: Introduce un porcentaje para calcular el monto de la propina y visualizar el total.
+- **Optimización de rendimiento**: Los componentes solo se renderizan cuando hay cambios en el estado, mejorando la eficiencia.
+- **Diseño Responsive**: Estilizado con **TailwindCSS** para un diseño moderno y adaptable a diferentes tamaños de pantalla.
 
-## Expanding the ESLint configuration
+## Herramientas y Librerías Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 1. **React**
+- **useState**: Utilizado para manejar el estado de la aplicación, como los ítems en la orden y los montos de propina.
+- **useMemo**: Optimiza cálculos costosos (como el total y las propinas), asegurando que solo se recalculen cuando sea necesario, mejorando el rendimiento.
+- **Hook Personalizado**: Centraliza las funcionalidades principales, como:
+  - `addItem`: Agrega un ítem a la lista de la orden.
+  - `removeItem`: Elimina un ítem de la lista.
+  - **Manejo de estados** para `order` y `tip`, facilitando una estructura más clara y reutilizable.
+- **Optimización de rendimiento**: Los componentes solo se renderizan cuando detectan cambios en el estado correspondiente, reduciendo renderizados innecesarios y mejorando la experiencia de usuario.
 
-- Configure the top-level `parserOptions` property like this:
+### 2. **TailwindCSS**
+- Utilizado para diseñar un **UI** moderno y responsive. Simplifica el manejo de clases y asegura que la aplicación sea visualmente atractiva en dispositivos móviles y pantallas más grandes.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 3. **Vite**
+- **Vite** es la herramienta utilizada para la construcción y el desarrollo rápido de la aplicación. Con su **Hot Module Replacement (HMR)**, los cambios en el código se reflejan instantáneamente durante el desarrollo, sin necesidad de recargar la página.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Estructura del Proyecto
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+El proyecto está dividido en varios componentes para mejorar la reutilización de código y la organización:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **OrderList**: Muestra la lista de ítems en la orden.
+- **AddItemForm**: Permite a los usuarios agregar nuevos ítems a la lista.
+- **TipCalculator**: Maneja el input para el porcentaje de la propina y muestra el monto calculado.
+- **TotalDisplay**: Muestra el costo total de la orden, incluida la propina.
