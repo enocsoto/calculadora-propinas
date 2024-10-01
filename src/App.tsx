@@ -2,10 +2,12 @@ import { menuItems } from "./data/db"
 import { MenuItem } from "./components/MenuItems";
 import useOrder from "./hooks/useOrder";
 import OrderItems from "./components/OrderItems";
+import OrderTotals from "./components/OrderTotals";
+import TipPercentageForm from "./components/TipPercentageForm";
 
 
 function App() {
-  const { order, addItem } = useOrder()
+  const { order, tip, setTip, addItem, removeItem, placeOrder } = useOrder()
   return (
     <>
       <header className="">
@@ -30,8 +32,28 @@ function App() {
           text-4xl font-semibold 
           text-slate-700
           ">Consumo</h2>
-          <OrderItems order={order} />
+          {
+            order.length > 0 ? (
+              <>
+                <OrderItems
+                  order={order}
+                  removeItem={removeItem}
+                />
 
+
+                <TipPercentageForm
+                  setTip={setTip}
+                  tip={tip}
+
+                />
+                <OrderTotals
+                  order={order}
+                  tip={tip}
+                  placeOrder={placeOrder}
+                />
+              </>
+            ) : (<p className=" text-3xl text-slate-500 font-semibold mt-4">Seleccione un producto del Menu</p>)
+          }
         </div>
       </main>
     </>
