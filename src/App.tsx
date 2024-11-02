@@ -1,13 +1,23 @@
 import { menuItems } from "./data/db"
 import { MenuItem } from "./components/MenuItems";
-import useOrder from "./hooks/useOrder";
+// import useOrder from "./hooks/useOrder";
 import OrderItems from "./components/OrderItems";
 import OrderTotals from "./components/OrderTotals";
 import TipPercentageForm from "./components/TipPercentageForm";
+import { useReducer } from "react";
+import { InitialState, OrderReducer } from "./reducers/order-reducer";
 
 
 function App() {
-  const { order, tip, setTip, addItem, removeItem, placeOrder } = useOrder()
+  // const {
+  //   order,
+  //   tip,
+  //   setTip,
+  //   addItem,
+  //   removeItem,
+  //   placeOrder
+  // } = useOrder()
+  const [state, dispatch] = useReducer(OrderReducer, InitialState);
   return (
     <>
       <header className="">
@@ -20,7 +30,8 @@ function App() {
             return <MenuItem
               key={item.id}
               item={item}
-              addItem={addItem}
+              // addItem={addItem}
+              dispatch={dispatch}
             />
           })}
         </div>
@@ -33,23 +44,26 @@ function App() {
           text-slate-700
           ">Consumo</h2>
           {
-            order.length > 0 ? (
+            state.order.length > 0 ? (
               <>
                 <OrderItems
-                  order={order}
-                  removeItem={removeItem}
+                  order={state.order}
+                  // removeItem={removeItem}
+                  dispatch={dispatch}
                 />
 
 
                 <TipPercentageForm
-                  setTip={setTip}
-                  tip={tip}
+                  // setTip={setTip}
+                  dispatch={dispatch}
+                  tip={state.tip}
 
                 />
                 <OrderTotals
-                  order={order}
-                  tip={tip}
-                  placeOrder={placeOrder}
+                  order={state.order}
+                  tip={state.tip}
+                  // placeOrder={placeOrder}
+                  dispatch={dispatch}
                 />
               </>
             ) : (<p className=" text-3xl text-slate-500 font-semibold mt-4">Seleccione un producto del Menu</p>)

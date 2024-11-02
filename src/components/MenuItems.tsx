@@ -1,12 +1,19 @@
+import { Dispatch } from "react"
 import formatCurrency from "../helpers"
 import { MenuItems } from "../types"
+import { OrderActions } from "../reducers/order-reducer"
 
 type MenuProps = {
   item: MenuItems
-  addItem: (item: MenuItems) => void
+  dispatch: Dispatch<OrderActions>
+  // addItem: (item: MenuItems) => void
 }
 
-export const MenuItem = ({ item, addItem }: MenuProps) => {
+export const MenuItem = ({
+  item,
+  // addItem
+  dispatch
+}: MenuProps) => {
   const { name, price } = item
   return (
     <>
@@ -20,7 +27,8 @@ export const MenuItem = ({ item, addItem }: MenuProps) => {
       hover:text-slate-50 
       hover:bg-slate-700
       "
-        onClick={() => addItem(item)}>
+        // onClick={() => addItem(item)}>
+        onClick={() => dispatch({ type: 'add-order', payload: { item } })}>
 
         <p className="">{name}</p>
         <p className="font-black">{formatCurrency(price)}</p>
